@@ -1,0 +1,9 @@
+Django>=3.2,<4.0
+djangorestframework
+drf-yasg
+gunicorn
+psycopg2-binary
+django-material-admin
+beautifulsoup4
+requests
+openai
