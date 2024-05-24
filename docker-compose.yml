@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   web:
@@ -8,16 +8,20 @@ services:
       - .:/app
     ports:
       - "8000:8000"
+    environment:
+      DJANGO_SUPERUSER_USERNAME: admin
+      DJANGO_SUPERUSER_PASSWORD: admin
     depends_on:
       - db
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: alm
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
 
-  db:
-    image: postgres
-    environment:
-      POSTGRES_DB: alm
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+volumes:
+  postgres_data:
