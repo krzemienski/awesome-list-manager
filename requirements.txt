@@ -3,7 +3,7 @@ djangorestframework
 drf-yasg
 gunicorn
 psycopg2-binary
-django-material-admin
+django-admin-coreui
 beautifulsoup4
 requests
 openai
