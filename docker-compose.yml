@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     build: .
-    command: gunicorn alm.wsgi:application --bind 0.0.0.0:8000
+    command: ["/wait-for-it.sh", "db:5432", "--", "sh", "-c", "python manage.py migrate && python create_superuser.py && gunicorn --bind 0.0.0.0:8000 alm.wsgi:application"]
     volumes:
       - .:/app
     ports:
@@ -11,8 +11,15 @@ services:
     environment:
       DJANGO_SUPERUSER_USERNAME: admin
       DJANGO_SUPERUSER_PASSWORD: admin
+      DB_NAME: alm
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_HOST: db
+      DB_PORT: 5432
     depends_on:
       - db
+    networks:
+      - alm-network
 
   db:
     image: postgres:13
@@ -22,6 +29,11 @@ services:
       POSTGRES_DB: alm
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
+    networks:
+      - alm-network
 
 volumes:
   postgres_data:
+
+networks:
+  alm-network:

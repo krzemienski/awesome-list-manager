@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ListViewSet, LinkViewSet, CategoryViewSet, upload_readme, create_link, update_readme, render_markdown
+from .views import ListViewSet, LinkViewSet, CategoryViewSet, upload_readme, create_link, render_markdown
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
@@ -29,7 +29,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/upload_readme/', upload_readme),
     path('api/create_link/', create_link),
-    path('api/update_readme/', update_readme),
     path('api/render_markdown/', render_markdown),
     path('api/render_markdown/<int:list_id>/', render_markdown),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
