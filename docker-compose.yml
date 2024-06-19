@@ -3,7 +3,6 @@ version: '3.8'
 services:
   web:
     build: .
-    command: ["/wait-for-it.sh", "db:5432", "--", "sh", "-c", "python manage.py migrate && python create_superuser.py && gunicorn --bind 0.0.0.0:8000 alm.wsgi:application"]
     volumes:
       - .:/app
     ports:
@@ -25,6 +24,8 @@ services:
     image: postgres:13
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_DB: alm
       POSTGRES_USER: user
