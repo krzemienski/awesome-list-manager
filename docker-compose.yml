@@ -1,40 +1,57 @@
 version: '3.8'
 
 services:
-  web:
-    build: .
-    volumes:
-      - .:/app
+  backend:
+    build: ./backend
     ports:
       - "8000:8000"
     environment:
-      DJANGO_SUPERUSER_USERNAME: admin
-      DJANGO_SUPERUSER_PASSWORD: admin
-      DB_NAME: alm
-      DB_USER: user
-      DB_PASSWORD: password
-      DB_HOST: db
-      DB_PORT: 5432
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
+      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+      - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+      - POSTGRES_DB=awesome_list
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
     depends_on:
       - db
-    networks:
-      - alm-network
+      - redis
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    environment:
+      - VITE_API_URL=http://localhost:8000
 
   db:
-    image: postgres:13
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=awesome_list
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:6-alpine
     ports:
-      - "5432:5432"
+      - "6379:6379"
+
+  celery:
+    build: ./backend
+    command: celery -A config worker -l info
     environment:
-      POSTGRES_DB: alm
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-    networks:
-      - alm-network
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+      - backend
 
 volumes:
   postgres_data:
-
-networks:
-  alm-network:

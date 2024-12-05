@@ -1,9 +1,0 @@
-django
-gunicorn
-psycopg2-binary
-djangorestframework
-django-admin-coreui
-beautifulsoup4
-requests
-openai
-drf_yasg
