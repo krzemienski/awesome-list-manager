@@ -1,0 +1,21 @@
+name: AwesomeBot
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  awesomebot:
+    runs-on: ubuntu-latest
+    container:
+      image: ruby:latest
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - name: install awesomebot
+      run: gem install awesome_bot
+    - name: run awesomebot
+      run: awesome_bot contents.json --allow-ssl --allow-redirect -a 403,503,429,404,500,443

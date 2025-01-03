@@ -1,0 +1,12 @@
+{
+  "default": true,
+  "MD013": false, // Allow long lines
+  "MD033": false, // Allow inline HTML
+  "MD041": false, // Allow no top-level heading
+  "MD024": {
+    "siblings_only": true
+  },
+  "MD029": {
+    "style": "ordered"
+  }
+}

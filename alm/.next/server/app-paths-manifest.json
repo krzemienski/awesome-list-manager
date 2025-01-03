@@ -1,0 +1,17 @@
+{
+  "/_not-found": "app/_not-found.js",
+  "/api/ai/suggest/route": "app/api/ai/suggest/route.js",
+  "/api/lists/[listId]/items/route": "app/api/lists/[listId]/items/route.js",
+  "/api/lists/[listId]/categories/route": "app/api/lists/[listId]/categories/route.js",
+  "/api/lists/[listId]/links/route": "app/api/lists/[listId]/links/route.js",
+  "/api/lists/route": "app/api/lists/route.js",
+  "/api/user/settings/route": "app/api/user/settings/route.js",
+  "/auth/callback/route": "app/auth/callback/route.js",
+  "/auth/signin/page": "app/auth/signin/page.js",
+  "/page": "app/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/lists/page": "app/dashboard/lists/page.js",
+  "/dashboard/repositories/page": "app/dashboard/repositories/page.js",
+  "/dashboard/analytics/page": "app/dashboard/analytics/page.js",
+  "/dashboard/settings/page": "app/dashboard/settings/page.js"
+}
